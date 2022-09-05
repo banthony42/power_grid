@@ -132,16 +132,16 @@ class Power {
     }
 
     start() {
-        window.setInterval(this.update.bind(this), 50)
+        window.setInterval(this.update.bind(this), 16)
     }
 }
 
 // Rectangle grid not working
 let sandbox = new Power({
-    columns: 20,
-    rows: 20,
+    columns: 30,
+    rows: 30,
     signal_max: 7,
-    cell_size: 35,
+    cell_size: 30,
     circle_neigbor: true,
     show_signal: true
 })
@@ -149,4 +149,4 @@ let sandbox = new Power({
 sandbox.start()
 
 // Bug when moving the mouse
-// sandbox.power_up(19, 2)
+// sandbox.power_up(10, 10)
