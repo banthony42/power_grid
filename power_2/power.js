@@ -1,5 +1,5 @@
 import { Cell } from "./cell.js"
-import { Torch, Light, Wire } from "./item.js"
+import { Torch, Light, Wire, Repeater } from "./item.js"
 
 class Power {
     constructor(options) {
@@ -46,9 +46,10 @@ class Power {
                     sandbox.set_cell(this.targeted_cell.options.x, this.targeted_cell.options.y, "Wire")
                 else if (event.key == 3)
                     sandbox.set_cell(this.targeted_cell.options.x, this.targeted_cell.options.y, "Light")
-                else if (event.key == 4) {
+                else if (event.key == 4)
                     sandbox.set_cell(this.targeted_cell.options.x, this.targeted_cell.options.y, "Empty")
-                }
+                else if (event.key == 5)
+                    sandbox.set_cell(this.targeted_cell.options.x, this.targeted_cell.options.y, "Repeater")
             }
 
     }
@@ -67,7 +68,7 @@ class Power {
         let index = (y*this.options.columns)+x
 
         this.grid.removeChild(this.cells[index].cell)
-
+        this.cells[index] = null
         if (type == "Torch")
             this.cells.splice(index, 1, new Torch({x: x, y:y, callback: this.cell_callback.bind(this)}))
         else if (type == "Light")
@@ -75,9 +76,10 @@ class Power {
         else if (type == "Wire")
             this.cells.splice(index, 1, new Wire({x: x, y:y, callback: this.cell_callback.bind(this)}))
         else if (type == "Empty") {
-            this.cells[index] = null
             this.cells.splice(index, 1, new Cell({x: x, y:y, callback: this.cell_callback.bind(this)}))
         }
+        else if (type == "Repeater")
+            this.cells.splice(index, 1, new Repeater({x: x, y:y, callback: this.cell_callback.bind(this)}))
 
         this.grid.appendChild(this.cells[index].cell)
 
@@ -86,7 +88,7 @@ class Power {
     }
 
     start() {
-        window.setInterval(this.update.bind(this), 16)
+        window.setInterval(this.update.bind(this), 100)
     }
 }
 

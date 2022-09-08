@@ -17,6 +17,7 @@ export class Cell {
         this.SetSignal(0)
         this.cell.addEventListener("mouseover", this.CellMouseHover.bind(this));
         this.cell.addEventListener("mouseleave", this.CellMouseLeave.bind(this));
+        this.cell.setAttribute('type', "empty")
     }
 
     CellMouseHover(event) {
